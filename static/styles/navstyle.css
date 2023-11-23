@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+:root{
+    --primary: #128C7E;
+    --secondary: #075E54;
+    --lightgreen: #25D366;
+}
+
+
+
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins';
+    background-color: rgb(221, 221, 221);
+    /* height: 500vh; */
+}
+
+
+
+
+
+
+nav{
+    /* position: sticky;
+    top: 0px; */
+    width: 100%;
+    height: 50px;
+    background-color:var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+
+    .nav-logo{
+        margin: 0px 0px 0px 50px;
+    }
+
+    .user{
+        position: relative;
+        margin: 0px 50px 0px 0px;
+    }
+}
+.drop{
+    display: none;
+    position: absolute;
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    width:100%;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 15px;
+    background-color: rgb(228, 228, 228);
+}
+.active{
+    display: flex;
+}
+
+.drop a{
+    color: black;
+    text-decoration: none;
+}
+
+.user button{
+    width: auto;
+    height: 30px;
+    border-radius: 50px;
+    border: 0px;
+    padding: 0px 15px 0px 15px;
+    background-color: white;
+    font-family: 'Poppins';
+    font-weight: 400;
+}
+
+@media (min-width:320px) and (max-width:481px) {
+    nav .nav-logo{
+        margin: 0px 0px 0px 10px ;
+    }
+    nav .user{
+        margin: 0px 10px 0px 0px ;
+    }
+}

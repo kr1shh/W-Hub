@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles/navstyle.css">
+    <link rel="stylesheet" href="../static/styles/homestyle.css">
+    <link rel="stylesheet" href="../static/styles/addpoststyle.css">
+    <link rel="stylesheet" href="../static/styles/adminstyle.css">
+    <link rel="stylesheet" href="../static/styles/footerstyle.css">
+    <link rel="stylesheet" href="../static/styles/forgotstyle.css">
+    <link rel="stylesheet" href="../static/styles/viewstyle.css">
+    <title>W-Hub Home</title>
+</head>
+<body>
+    <section>
+        <nav>
+            <div class="nav-logo">
+                W Hub
+            </div>
+            
+            <div class="user">
+                <button onclick="dropDown()"> User </button>
+
+                <div class="drop">
+                    <a href="#">Logout</a>
+                </div>
+        </div>
+        </nav>
+    </section>
+    
+
+    <section>
+        <div class="root">
+
+            {% block content %}
+            {% endblock %}
+
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer">
+            <h1>
+                W Hub
+            </h1>
+            <p>
+                Explore you desire.
+            </p>
+
+            <p class="f-copy">
+                &copy; 2023 W Hub
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="../static/js/navjs.js"></script>
+</body>
+</html>
