@@ -1,0 +1,99 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+:root{
+    --primary: #128C7E;
+    --secondary: #075E54;
+    --lightgreen: #25D366;
+}
+
+
+main.post{
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.post_container{
+    width: 40%;
+    height: 80%;
+    border-radius: 15px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.post_container form{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.post_container form h2{
+    color: var(--primary);
+}
+
+
+.post_container form input[type=text],.post_container form input[type=url]{
+    width: 300px;
+    height: 40px;
+    outline:none;
+    border-bottom: 1px solid var(--primary);
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    color: var(--primary);
+    padding: 0px 10px 0px 10px;
+    font-family: 'Poppins';
+}
+.post_container form textarea{
+    resize: none;
+    width: 300px;
+    min-height: 90px;
+    border-top: 0;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--primary);
+    outline:none;
+    color: var(--primary);
+    font-family: 'Poppins';
+}
+.post_container form textarea:focus{
+    outline: none;
+}
+
+.post_container form label{
+    color: var(--primary);
+    font-family:'Poppins' ;
+    font-weight: 400;
+}
+
+.post_container form input[type=file]{
+    width: 90px;
+    font-family: 'Poppins';
+}
+
+.post_container form input[type=submit]{
+    width: 115px;
+    height: 40px;
+    border-radius: 25px;
+    border: 1px solid var(--primary);
+    color: var(--primary);
+    font-family: 'Poppins';
+    background-color: transparent;
+    transition: all .4s;
+}
+
+.post_container form input[type=submit]:hover{
+    outline: none;
+    border: 0;
+    background-color: var(--primary);
+    color: white;
+}
