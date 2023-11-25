@@ -97,3 +97,16 @@ main.post{
     background-color: var(--primary);
     color: white;
 }
+
+@media(max-width:480px){
+    .post_container{
+        width: 100%;
+        border-radius: 0;
+    }
+}
+
+@media(min-width:481px) and (max-width:768px){
+    .post_container{
+        width: 70%;
+    }
+}
