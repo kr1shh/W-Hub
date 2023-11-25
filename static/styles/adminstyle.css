@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+:root{
+    --primary: #128C7E;
+    --secondary: #075E54;
+    --lightgreen: #25D366;
+}
+
+
+.admin_container{
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    gap: 40px;
+}
+
+.admin_container button{
+    margin-top: 50px;
+    width: 100px;
+    height: 40px;
+    border: 1px solid var(--primary);
+    border-radius: 50px;
+    background-color: transparent;
+    font-family: "Poppins";
+    color: var(--primary);
+    transition: all .4s;
+}
+.admin_container button:hover{
+    background-color: var(--primary);
+    color: white;
+}
+
+.admin_container .g_list{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 90%;
+    height: 70px;
+    background-color: white;
+    color: var(--primary);
+    border-radius: 10px;
+    padding: 0px 10px 0px 10px;
+}
+.admin_container .g_list button{
+    margin-top: 0px;
+    border-color:red ;
+    color: red;
+    transition: all .3s;
+}
+
+.admin_container .g_list button:hover{
+    background-color: red;
+    color: white;
+}
+
+.admin_container .g_list .g_icon{
+    width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    overflow: hidden;
+}
+.admin_container .g_list .g_icon img{
+    width: 100%;
+    height: 100%;
+}
+
+@media(min-width:1024px){
+    .admin_container .g_list{
+        width: 60%;
+    }
+}
+
+

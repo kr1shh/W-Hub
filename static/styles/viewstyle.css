@@ -1,0 +1,79 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;700&display=swap');
+
+:root{
+    --primary: #128C7E;
+    --secondary: #075E54;
+    --lightgreen: #25D366;
+}
+
+
+
+
+.view_container{
+    width: 100%;
+    height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.view_container .view_card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: white;
+    height: 90%;
+    color: var(--primary);
+}
+.view_card .view_dp{
+    width: 70px;
+    height: 70px;
+    background-color: black;
+    border-radius: 50px;
+    overflow: hidden;
+}
+
+.view_card .view_dp img{
+    width: 100%;
+    height: 100%;
+    /* object-fit: cover; */
+}
+
+.view_card p{
+    margin: 0px 30px 20px 30px;
+    text-align: center;
+}
+
+
+.view_card button{
+    width: 100px;
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid;
+    color: var(--primary);
+    border-color:var(--primary);
+    background-color: transparent;
+    font-family: 'Poppins';
+    transition: all .4s;
+}
+
+.view_card button:hover{
+    color: white;
+    background-color: var(--primary);
+}
+
+@media(min-width:481px){
+    .view_container .view_card{
+        width: 50%;
+        border-radius: 20px;
+    }
+}
+
+@media(min-width:769px){
+    .view_container .view_card{
+        width: 40%;
+        height: 60%;
+    }
+}
