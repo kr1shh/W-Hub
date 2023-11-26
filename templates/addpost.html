@@ -3,7 +3,7 @@
 
 <main class="post">
     <div class="post_container">
-        <form action="#" method="post">
+        <form action="/add-post" method="post" enctype="multipart/form-data">
             <h2>
                 Add you'r group
             </h2>
@@ -11,7 +11,7 @@
             <input type="url" name="group-url" placeholder="Group link" required>
             <textarea name="group-des" placeholder="Group description" required></textarea>
             <label for="group-dp">Upload your group's icon</label>
-            <input type="file" name="group-dp" required>
+            <input type="file" name="group-dp" id="group-dp" required>
             <input type="submit" value="Create">
         </form>
     </div>

@@ -1,3 +1,5 @@
+from datetime import datetime
+import os
 from flask import *
 from DBConnection import Db
 
@@ -13,23 +15,25 @@ def home():
     if lid is None:
         return redirect('/login')
     db = Db()
-    # qry = "SELECT product_id, name, price, image FROM products"
-    # res = db.select(qry)
-    # products = []
-    # for row in res:
-    #     product = {
-    #         'product_id': row['product_id'],
-    #         'name': row['name'],
-    #         'price': row['price'],
-    #         'image': row['image']
-    #     }
-    #     products.append(product)
+    qry = "SELECT groupname, groupdes, grouplink, groupdp, gid FROM `groups`"
+    res = db.select(qry)
+    groups = []
+    for row in res:
+        group = {
+            'gid': row['gid'],
+            'name': row['groupname'],
+            'des': row['groupdes'],
+            'url': row['grouplink'],
+            'dp': row['groupdp']
+        }
+        groups.append(group)
+
     qry1 = "SELECT name FROM signup WHERE  uid = '" + lid + "' "
     user_res = db.selectOne(qry1)
     if user_res is None:
         return redirect("/login")
     user_name = user_res['name']
-    return render_template("home.html", user_name=user_name)
+    return render_template("home.html", user_name=user_name, groups=groups)
 
 
 @app.route('/login')
@@ -67,10 +71,12 @@ def login_post():
             session['lid'] = str(res['lid'])
             return redirect('/admin')
 
-@app.route('/logout-post',methods=['GET'])
+
+@app.route('/logout-post', methods=['GET'])
 def logout():
     session.clear()
     return redirect('/login')
+
 
 @app.route('/signup')
 def sign_up():
@@ -115,12 +121,16 @@ def forgot():
 
 @app.route('/add')
 def add():
-    return render_template('addpost.html')
-
-
-@app.route('/add-post', methods=['POST'])
-def add_post():
-    return render_template('addpost.html')
+    lid = session.get('lid')
+    if lid is None:
+        return redirect('/login')
+    db = Db()
+    qry1 = "SELECT name FROM signup WHERE  uid = '" + lid + "' "
+    user_res = db.selectOne(qry1)
+    if user_res is None:
+        return redirect("/login")
+    user_name = user_res['name']
+    return render_template("addpost.html", user_name=user_name)
 
 
 # ===============================================
@@ -134,25 +144,47 @@ def admin():
     if lid is None:
         return redirect('/login')
     db = Db()
-    # qry = "SELECT product_id, name, price, image FROM products"
-    # res = db.select(qry)
-    # products = []
-    # for row in res:
-    #     product = {
-    #         'product_id': row['product_id'],
-    #         'name': row['name'],
-    #         'price': row['price'],
-    #         'image': row['image']
-    #     }
-    #     products.append(product)
+    qry = "SELECT groupname, groupdes, grouplink, groupdp, gid FROM `groups`"
+    res = db.select(qry)
+    groups = []
+    for row in res:
+        group = {
+            'gid': row['gid'],
+            'name': row['groupname'],
+            'des': row['groupdes'],
+            'url': row['grouplink'],
+            'dp': row['groupdp']
+        }
+        groups.append(group)
     qry1 = "SELECT name FROM signup WHERE  uid = '" + lid + "' "
     user_res = db.selectOne(qry1)
     if user_res is None:
         return redirect("/login")
     user_name = user_res['name']
-    return render_template("admin.html", user_name=user_name)
+    return render_template("admin.html", user_name=user_name, groups=groups)
 
 
+@app.route('/add-post', methods=['POST'])
+def add_post():
+    lid = session.get("lid")
+    name = request.form['group-name']
+    url = request.form['group-url']
+    des = request.form['group-des']
+    image = request.files['group-dp']
+    if image:
+        current_time = datetime.now().strftime("%Y%m%d%H%M%S")
+        filename = f"{current_time}_{image.filename}"
+        image_url = os.path.join('static/assets/posts', filename)
+        image_path = os.path.join('../static/assets/posts/', filename)
+        os.makedirs('static/assets/posts', exist_ok=True)
+        image.save(image_url)
+        print(image_path)
+    else:
+        return '''<script>alert("Upload an image also");window.location="/add-product"</script>'''
+    db = Db()
+    qry = f"INSERT INTO `groups` (uid, groupname, groupdes, grouplink, groupdp) VALUES ('{lid}', '{name}', '{des}', '{url}', '{image_path}')"
+    db.insert(qry)
+    return '"<script>alert("Groupe added successfully");window.location="/add"</script>"'
 
 
 # ===============================================
