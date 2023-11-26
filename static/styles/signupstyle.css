@@ -88,3 +88,9 @@ body{
     background-color: var(--secondary);
     color: white;
 }
+
+.signup form select{
+    width:150px;
+    height:30px;
+    border-radius:10px;
+}
