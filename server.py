@@ -8,8 +8,28 @@ app.secret_key = "whub"
 # ===================== user ====================
 
 @app.route('/')
-def test():
-    return render_template("home.html")
+def home():
+    lid = session.get('lid')
+    if lid is None:
+        return redirect('/login')
+    db = Db()
+    # qry = "SELECT product_id, name, price, image FROM products"
+    # res = db.select(qry)
+    # products = []
+    # for row in res:
+    #     product = {
+    #         'product_id': row['product_id'],
+    #         'name': row['name'],
+    #         'price': row['price'],
+    #         'image': row['image']
+    #     }
+    #     products.append(product)
+    qry1 = "SELECT name FROM signup WHERE  uid = '" + lid + "' "
+    user_res = db.selectOne(qry1)
+    if user_res is None:
+        return redirect("/login")
+    user_name = user_res['name']
+    return render_template("home.html", user_name=user_name)
 
 
 @app.route('/login')
@@ -19,17 +39,38 @@ def login():
 
 @app.route('/login-post', methods=['POST'])
 def login_post():
+    # email = request.form['email']
+    # passw = request.form['password']
+    # db = Db()
+    # qry = "select * from login where email = '" + email + "' and password='" + passw + "'"
+    # res = db.selectOne(qry)
+    # if res is None:
+    #     return '''<script>alert("Invalid Username Or Password");window.location="/"</script>'''
+    # else:
+    #     session["lid"] = str(res['lid'])
+    #     return redirect('/')
+
     email = request.form['email']
-    passw = request.form['password']
+    password = request.form['password']
     db = Db()
-    qry = "select * from login where email = '" + email + "' and password='" + passw + "'"
+
+    qry = "SELECT * FROM login WHERE email = '" + email + "' AND password = '" + password + "'"
     res = db.selectOne(qry)
+
     if res is None:
         return '''<script>alert("Invalid Username Or Password");window.location="/"</script>'''
     else:
-        session["lid"] = str(res['lid'])
-        return redirect('/home')
+        if res['type'] == 'user':
+            session['lid'] = str(res['lid'])
+            return redirect('/')
+        elif res['type'] == 'admin':
+            session['lid'] = str(res['lid'])
+            return redirect('/admin')
 
+@app.route('/logout-post',methods=['GET'])
+def logout():
+    session.clear()
+    return redirect('/login')
 
 @app.route('/signup')
 def sign_up():
@@ -89,7 +130,29 @@ def add_post():
 
 @app.route('/admin')
 def admin():
-    return render_template('admin.html')
+    lid = session.get('lid')
+    if lid is None:
+        return redirect('/login')
+    db = Db()
+    # qry = "SELECT product_id, name, price, image FROM products"
+    # res = db.select(qry)
+    # products = []
+    # for row in res:
+    #     product = {
+    #         'product_id': row['product_id'],
+    #         'name': row['name'],
+    #         'price': row['price'],
+    #         'image': row['image']
+    #     }
+    #     products.append(product)
+    qry1 = "SELECT name FROM signup WHERE  uid = '" + lid + "' "
+    user_res = db.selectOne(qry1)
+    if user_res is None:
+        return redirect("/login")
+    user_name = user_res['name']
+    return render_template("admin.html", user_name=user_name)
+
+
 
 
 # ===============================================
