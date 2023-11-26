@@ -106,7 +106,29 @@ def signup_post():
 
 @app.route('/view')
 def view():
-    return render_template('view.html')
+    lid = session.get('lid')
+    if lid is None:
+        return redirect('/login')
+    gid = request.args.get('groupID')
+    db = Db()
+    qry = " SELECT * FROM `groups` WHERE gid = '" + gid + "' "
+    res = db.select(qry)
+    if not res:
+        return "Group not found"
+
+    group_info = res[0]
+
+    dp = group_info.get('groupdp')
+    name = group_info.get('groupname')
+    des = group_info.get('groupdes')
+    url = group_info.get('grouplink')
+
+    qry1 = "SELECT name FROM signup WHERE  uid = '" + lid + "' "
+    user_res = db.selectOne(qry1)
+    if user_res is None:
+        return redirect("/login")
+    user_name = user_res['name']
+    return render_template('view.html', user_name=user_name, dp=dp, name=name, des=des, url=url)
 
 
 @app.route('/view-get', methods=['GET'])
@@ -133,10 +155,31 @@ def add():
     return render_template("addpost.html", user_name=user_name)
 
 
+@app.route('/delete', methods=['GET'])
+def delete():
+    gid = request.args.get('groupID')
+    db = Db()
+    qry1 = " SELECT groupdp FROM `groups` WHERE gid = '" + gid + "' "
+    dp = db.selectOne(qry1)
+    icon = dp['groupdp']
+
+    if icon:
+        try:
+            os.remove(icon)
+        except OSError:
+            pass
+
+    qry = "DELETE FROM `groups` WHERE gid = '" + gid + "'"
+    db.delete(qry)
+    return  ''' <script>alert("Deletion completed");window.location="/"</script> '''
+
+
+
+
+
 # ===============================================
 
 # ==================== admin ====================
-
 
 @app.route('/admin')
 def admin():

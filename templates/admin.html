@@ -12,7 +12,9 @@
                 <img src="{{ group.dp }}" alt="Group DP">
             </div>
             <h4> {{ group.name }} </h4>
-            <button> Delete </button>
+            <a href="/delete?groupID={{ group.gid }}">
+                <button> Delete </button>
+            </a>
         </div>
 {% endfor %}
 
