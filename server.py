@@ -1,11 +1,10 @@
 from datetime import datetime
-import os
 from flask import *
 from DBConnection import Db
+import os
 
 app = Flask(__name__)
 app.secret_key = "whub"
-
 
 # ===================== user ====================
 
@@ -43,17 +42,6 @@ def login():
 
 @app.route('/login-post', methods=['POST'])
 def login_post():
-    # email = request.form['email']
-    # passw = request.form['password']
-    # db = Db()
-    # qry = "select * from login where email = '" + email + "' and password='" + passw + "'"
-    # res = db.selectOne(qry)
-    # if res is None:
-    #     return '''<script>alert("Invalid Username Or Password");window.location="/"</script>'''
-    # else:
-    #     session["lid"] = str(res['lid'])
-    #     return redirect('/')
-
     email = request.form['email']
     password = request.form['password']
     db = Db()
@@ -171,7 +159,7 @@ def delete():
 
     qry = "DELETE FROM `groups` WHERE gid = '" + gid + "'"
     db.delete(qry)
-    return  ''' <script>alert("Deletion completed");window.location="/"</script> '''
+    return  ''' <script>alert("Deletion completed");window.location="/admin"</script> '''
 
 
 
